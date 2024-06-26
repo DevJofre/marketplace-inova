@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx src/server.ts",
-    "start:dev": "tsx watch src/server.ts",
-    "build": "tsup src"
+    "start:dev": "npm run build && tsx watch src/server.ts",
+    "build": "tsup src --out-dir dist --format esm,cjs"
   },
   "keywords": [],
   "author": "",
