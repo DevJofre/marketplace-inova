@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-const mongoURI = 'mongodb://localhost:27017/marketplace_inova';
-
+const mongoURI = 'mongodb://mongoadmin:jofre123@localhost:27017/marketplace_inova?authSource=admin';
 const connectDB = async () => {
     try {
       await mongoose.connect(mongoURI);

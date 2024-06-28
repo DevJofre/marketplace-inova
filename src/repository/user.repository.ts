@@ -3,9 +3,9 @@ import User, { IUser } from '../model/user.model';
 
 export const createUser = async (userData: IUser) => {
   try {
-    const address = new User(userData);
-    await address.save();
-    return address;
+    const user = new User(userData);
+    await user.save();
+    return user;
   } catch (error:any) {
     throw new Error(`Error creating user: ${error.message}`);
   } 
