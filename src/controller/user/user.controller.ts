@@ -1,14 +1,24 @@
 import { Request, Response } from 'express';
 import { createUser, findUserById } from '../../repository/user.repository';
-
+import { createAddress } from '../../repository/address.repository';
 
 export const createNewUser = async (req: Request, res: Response) => {
   try {
-    const userData = req.body;
+    const { address, ...userData } = req.body;
+
     const newUser = await createUser(userData);
-    res.status(201).json(newUser);
+
+    address.user = newUser;
+    const newAddress = await createAddress(address);
+
+    const response = {
+      user: newUser,
+      address: newAddress
+    }
+
+    res.status(201).json(response);
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao criar Usuario', error });
+    res.status(500).json({ message: 'Erro ao criar Usuário', error });
   }
 };
 
@@ -19,9 +29,9 @@ export const getById = async (req: Request, res: Response) => {
     if (user) {
       res.status(200).json(user);
     } else {
-      res.status(404).json({ message: 'Usuario não encontrado' });
+      res.status(404).json({ message: 'Usuário não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao buscar Usuario', error });
+    res.status(500).json({ message: 'Erro ao buscar Usuário', error });
   }
 };

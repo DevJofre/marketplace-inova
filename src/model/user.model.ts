@@ -19,6 +19,7 @@ export interface IUser extends Document {
   whatsapp_contact?: string;
   createdAt?: Date;
   updatedAt?: Date;
+
 }
 
 
@@ -33,6 +34,7 @@ const userSchema = new Schema<IUser>({
   whatsapp_contact: { type: String},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
+  
 });
 
 // Criar o modelo do usuário

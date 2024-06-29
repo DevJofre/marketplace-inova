@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { createAddress, findAddressById } from '../../repository/address.repository';
 
-
 export const createNewAddress = async (req: Request, res: Response) => {
   try {
     const addressData = req.body;

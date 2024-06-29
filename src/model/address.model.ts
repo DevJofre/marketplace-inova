@@ -1,10 +1,11 @@
 import { Schema, model, Document } from 'mongoose';
 import User from './user.model';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export interface IAddress extends Document {
   id: string;
-  user_id: string;
+  user: Schema.Types.ObjectId;
   street: string;
   state: string;
   city: string;
@@ -16,8 +17,12 @@ export interface IAddress extends Document {
 
 
 const addressSchema = new Schema<IAddress>({
-  id: { type: String, required: true },
-  user_id: { type: String, required: true, ref: 'User' },
+  id: { type: String, default: uuidv4 },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+ },
   street: { type: String, required: true },
   state: { type: String, required: true },
   city: { type: String, required: true },
