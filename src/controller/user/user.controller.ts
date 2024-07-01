@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUser, findUserById, deleteUserById } from '../../repository/user.repository';
+import { createUser, findUserById, deleteUserById, updateUserById } from '../../repository/user.repository';
 import { createAddress } from '../../repository/address.repository';
 import mongoose from 'mongoose';
 
@@ -18,8 +18,9 @@ export const createNewUser = async (req: Request, res: Response) => {
     };
 
     res.status(201).json(response);
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao criar Usuário'});
+  } catch (error:any) {
+    const errorMessage = error.message || 'Erro desconhecido ao procura Usuário';
+    res.status(500).json({ message: 'Erro ao procura Usuário', error: errorMessage });
   }
 };
 
@@ -38,8 +39,9 @@ export const getById = async (req: Request, res: Response) => {
     } else {
       res.status(404).json({ message: 'Usuário não encontrado' });
     }
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao buscar Usuário'});
+  } catch (error:any) {
+    const errorMessage = error.message || 'Erro desconhecido ao cria Usuário';
+    res.status(500).json({ message: 'Erro ao cria Usuário', error: errorMessage });
   }
 };
 
@@ -58,7 +60,31 @@ export const deleteUser = async (req: Request, res: Response) => {
     } else {
       res.status(404).json({ message: 'Usuário não encontrado' });
     }
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao deletar Usuário'});
+  } catch (error:any) {
+    const errorMessage = error.message || 'Erro desconhecido ao deleta Usuário';
+    res.status(500).json({ message: 'Erro ao deletar Usuário', error: errorMessage });
+  }
+};
+
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    // Validar o ID
+    if (!mongoose.Types.ObjectId.isValid(id.trim())) {
+      return res.status(400).json({ message: 'ID inválido' });
+    }
+
+    const updatedUser = await updateUserById(id.trim(), updateData);
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+  } catch (error: any) {
+    const errorMessage = error.message || 'Erro desconhecido ao atualizar Usuário';
+    res.status(500).json({ message: 'Erro ao atualizar Usuário', error: errorMessage });
   }
 };

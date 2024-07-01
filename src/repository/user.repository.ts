@@ -31,3 +31,13 @@ export const deleteUserById = async (id: string) => {
   }
 };
 
+export const updateUserById = async (id: string, updateData: Partial<IUser>) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Error updating user: ${error.message}`);
+  }
+};
+
+

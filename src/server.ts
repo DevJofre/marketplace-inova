@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import connectDB from './config/database';
-import { createNewUser, getById, deleteUser } from './controller/user/user.controller';
+import { createNewUser, getById, deleteUser, updateUser } from './controller/user/user.controller';
 
 const app = express();
 const port = 3000;
@@ -18,6 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/usuario', createNewUser);
 app.get('/usuario/:id', getById);
 app.delete('/usuario/:id', deleteUser);
+app.patch('/usuario/:id', updateUser);
 
 
 app.listen(port, () => {
