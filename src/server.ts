@@ -16,8 +16,6 @@ app.get('/', (req: Request, res: Response) => {
 
 
 app.post('/usuario', createNewUser);
-
-
 app.get('/usuario/:id', getById);
 
 
