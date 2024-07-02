@@ -14,3 +14,12 @@ export const createAddress = async (addressData: IAddress) => {
 export const findAddressById = async (id: string) => {
   return Address.findById(id);
 };
+
+export const updateAddressByUserId = async (userId: string, updateData: Partial<IAddress>) => {
+  try {
+    const updatedAddress = await Address.findOneAndUpdate({ user: userId }, updateData, { new: true });
+    return updatedAddress;
+  } catch (error: any) {
+    throw new Error(`Error updating address: ${error.message}`);
+  }
+};

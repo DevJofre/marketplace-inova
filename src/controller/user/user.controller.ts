@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { createUser, findUserById, deleteUserById, updateUserById } from '../../repository/user.repository';
-import { createAddress } from '../../repository/address.repository';
+import { createAddress, updateAddressByUserId } from '../../repository/address.repository';
 import mongoose from 'mongoose';
 
 export const createNewUser = async (req: Request, res: Response) => {
@@ -70,21 +70,27 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const updateData = req.body;
+    const { address, ...userData } = req.body;
 
     // Validar o ID
     if (!mongoose.Types.ObjectId.isValid(id.trim())) {
       return res.status(400).json({ message: 'ID inválido' });
     }
 
-    const updatedUser = await updateUserById(id.trim(), updateData);
+    const updatedUser = await updateUserById(id.trim(), userData);
+
+    let updatedAddress = null;
+    if (address) {
+      updatedAddress = await updateAddressByUserId(id.trim(), address);
+    }
+
     if (updatedUser) {
-      res.status(200).json(updatedUser);
+      res.status(200).json({ user: updatedUser, address: updatedAddress });
     } else {
       res.status(404).json({ message: 'Usuário não encontrado' });
     }
-  } catch (error: any) {
-    const errorMessage = error.message || 'Erro desconhecido ao atualizar Usuário';
-    res.status(500).json({ message: 'Erro ao atualizar Usuário', error: errorMessage });
+  } catch (error:any) {
+    const errorMessage = error.message || 'Erro desconhecido ao deleta Usuário';
+    res.status(500).json({ message: 'Erro ao deletar Usuário', error: errorMessage });
   }
 };

@@ -39,5 +39,3 @@ export const updateUserById = async (id: string, updateData: Partial<IUser>) => 
     throw new Error(`Error updating user: ${error.message}`);
   }
 };
-
-
