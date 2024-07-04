@@ -1,6 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import Address from './address.model';
 
 enum UserRole {
   Client = 'CLIENT',
