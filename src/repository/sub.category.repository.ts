@@ -14,3 +14,12 @@ export const createSubCategory = async (subCategoryData: ISubCategory) => {
 export const findSubCategoryById = async (id: string) => {
   return SubCategory.findById(id);
 };
+
+export const updateSubCategoryByUserId = async (categoryId: string, updateData: Partial<ISubCategory>) => {
+  try {
+    const updatedSubCategory = await SubCategory.findOneAndUpdate({ category: categoryId }, updateData, { new: true });
+    return updatedSubCategory;
+  } catch (error: any) {
+    throw new Error(`Error updating sub-category: ${error.message}`);
+  }
+};

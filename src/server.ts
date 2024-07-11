@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import connectDB from './config/database';
 import { createNewUser, getById, deleteUser, updateUser } from './controller/user/user.controller';
-import { createNewCategory, getByIdCategory } from './controller/category/category.controller'
+import { createNewCategory, getByIdCategory, deleteCategory, updateCategory } from './controller/category/category.controller'
 
 const app = express();
 const port = 3000;
@@ -23,6 +23,8 @@ app.patch('/usuario/:id', updateUser);
 
 app.post('/category', createNewCategory);
 app.get('/category/:id', getByIdCategory);
+app.delete('/category/:id', deleteCategory);
+app.patch('/category/:id', updateCategory);
 
 
 
