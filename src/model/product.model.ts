@@ -16,7 +16,11 @@ export interface IProduct extends Document {
 const productSchema = new Schema<IProduct>({
   id: { type: String, default: uuidv4 },
   name: { type: String, required: true },
-  subCategoryId: { type: String, required: true },
+  subCategoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'SubCategory',
+    required: true
+  },
   description: { type: String, required: true, unique: true },
   price: { type: String, required: true },
   brand: { type: String, required: true },

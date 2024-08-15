@@ -31,6 +31,7 @@ const orderProductsSchema = new Schema<IOrderProducts>({
   updatedAt: { type: Date, default: Date.now }
 });
 
+
 const OrderProducts = model<IOrderProducts>('OrderProducts', orderProductsSchema);
 
 export default OrderProducts;
