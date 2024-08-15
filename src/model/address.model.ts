@@ -12,6 +12,8 @@ export interface IAddress extends Document {
   number: string;
   zip_code: string;
   complement?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 
@@ -28,10 +30,11 @@ const addressSchema = new Schema<IAddress>({
   country: { type: String, required: true },
   number: { type: String, required: true },
   zip_code: { type: String, required: true },
-  complement: { type: String }
+  complement: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
-// Criar o modelo do endereço
 const Address = model<IAddress>('Address', addressSchema);
 
 export default Address;
