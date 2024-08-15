@@ -4,13 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 export interface ICategory extends Document {
     id: string;
     name: string;
-    photo: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 const categorySchema = new Schema<ICategory>({
     id: {type: String, default: uuidv4},
     name: {type: String, required: true},
-    photo: {type:String, required: true}
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
 })
 
 categorySchema.virtual('subcategory', {
