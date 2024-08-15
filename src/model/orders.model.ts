@@ -25,6 +25,13 @@ const ordersSchema = new Schema<IOrders>({
   updatedAt: { type: Date, default: Date.now }
 });
 
+ordersSchema.virtual('orderProducts', {
+  ref: 'OrderProducts',
+  localField: '_id',
+  foreignField: 'ordens',
+  justOne: false
+});
+
 const Orders = model<IOrders>('Orders', ordersSchema);
 
 export default Orders;

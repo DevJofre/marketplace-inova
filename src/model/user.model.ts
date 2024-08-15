@@ -1,5 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 
 enum UserRole {
   Client = 'CLIENT',
@@ -20,6 +21,7 @@ export interface IUser extends Document {
   profileImageUrl?: string;  
   createdAt?: Date;
   updatedAt?: Date;
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>({
@@ -36,6 +38,20 @@ const userSchema = new Schema<IUser>({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
+
+
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password') || this.isNew) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  next();
+});
+
+
+userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 userSchema.virtual('address', {
   ref: 'Address',
