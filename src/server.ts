@@ -2,13 +2,15 @@ import express, { Request, Response } from 'express';
 import connectDB from './config/database';
 import { createNewUser, getById, deleteUser, updateUser } from './controller/user/user.controller';
 import { createNewCategory, getByIdCategory, deleteCategory, updateCategory } from './controller/category/category.controller'
+import cors from 'cors';
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 connectDB()
 
 app.use(express.json());
+app.use(cors());
 
 
 app.get('/', (req: Request, res: Response) => {

@@ -6,7 +6,6 @@ export interface ISubCategory extends Document {
     name: string;
     photo: string;
     category: Schema.Types.ObjectId;
-
 }
 
 const subCategorySchema = new Schema<ISubCategory>({

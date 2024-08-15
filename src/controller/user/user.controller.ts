@@ -9,7 +9,7 @@ export const createNewUser = async (req: Request, res: Response) => {
 
     const newUser = await createUser(userData);
 
-    address.user = newUser._id;
+    address.userId = newUser._id;
     const newAddress = await createAddress(address);
 
     const response = {
