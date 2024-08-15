@@ -56,7 +56,14 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
 userSchema.virtual('address', {
   ref: 'Address',
   localField: '_id',
-  foreignField: 'user',
+  foreignField: 'userId',
+  justOne: false
+});
+
+userSchema.virtual('orders', {
+  ref: 'Orders',
+  localField: '_id',
+  foreignField: 'userId',
   justOne: false
 });
 

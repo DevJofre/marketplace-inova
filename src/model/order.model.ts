@@ -28,9 +28,10 @@ const ordersSchema = new Schema<IOrders>({
 ordersSchema.virtual('orderProducts', {
   ref: 'OrderProducts',
   localField: '_id',
-  foreignField: 'ordens',
+  foreignField: 'ordersId',
   justOne: false
 });
+
 
 const Orders = model<IOrders>('Orders', ordersSchema);
 

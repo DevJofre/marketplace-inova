@@ -1,7 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-
-
 export interface IProduct extends Document {
   id: string;
   name: string;
@@ -29,9 +27,9 @@ const productSchema = new Schema<IProduct>({
 });
 
 productSchema.virtual('productphoto', {
-  ref: 'ProductPhoto',
+  ref: 'ProductPhotos',
   localField: '_id',
-  foreignField: 'product',
+  foreignField: 'productId',
   justOne: false
 });
 

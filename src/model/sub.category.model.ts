@@ -19,12 +19,6 @@ const subCategorySchema = new Schema<ISubCategory>({
      }
 })
 
-subCategorySchema.virtual('product', {
-    ref: 'Product',
-    localField: '_id',
-    foreignField: 'subCategory',
-    justOne: false
-});
 
 subCategorySchema.set('toObject', { virtuals: true });
 subCategorySchema.set('toJSON', { virtuals: true });

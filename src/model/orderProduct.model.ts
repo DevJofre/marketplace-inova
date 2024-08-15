@@ -32,6 +32,7 @@ const orderProductsSchema = new Schema<IOrderProducts>({
 });
 
 
+
 const OrderProducts = model<IOrderProducts>('OrderProducts', orderProductsSchema);
 
 export default OrderProducts;

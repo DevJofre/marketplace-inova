@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-export interface IProductPhoto extends Document {
+export interface IProductPhotos extends Document {
     id: string;
     productId: Schema.Types.ObjectId;
     photo: string;
@@ -9,7 +9,7 @@ export interface IProductPhoto extends Document {
     updatedAt?: Date;
 }
 
-const productPhotoSchema = new Schema<IProductPhoto>({
+const productPhotosSchema = new Schema<IProductPhotos>({
     id: {type: String, default: uuidv4},
     productId: {
         type: Schema.Types.ObjectId,
@@ -21,6 +21,6 @@ const productPhotoSchema = new Schema<IProductPhoto>({
     updatedAt: { type: Date, default: Date.now }
 })
 
-const ProductPhoto = model<IProductPhoto>('ProductPhoto', productPhotoSchema );
+const ProductPhotos = model<IProductPhotos>('ProductPhotos', productPhotosSchema );
 
-export default ProductPhoto;
+export default ProductPhotos;

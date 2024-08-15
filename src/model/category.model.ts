@@ -18,7 +18,7 @@ const categorySchema = new Schema<ICategory>({
 categorySchema.virtual('subcategory', {
     ref: 'SubCategory',
     localField: '_id',
-    foreignField: 'category',
+    foreignField: 'categoryId',
     justOne: false
   });
   
