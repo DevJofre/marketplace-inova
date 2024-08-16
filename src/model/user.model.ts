@@ -22,6 +22,7 @@ export interface IUser extends Document {
   createdAt?: Date;
   updatedAt?: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  token?:string | null;
 }
 
 const userSchema = new Schema<IUser>({
@@ -36,7 +37,8 @@ const userSchema = new Schema<IUser>({
   whatsapp_contact: { type: String },
   profileImageUrl: { type: String },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
+  token: { type: String }
 });
 
 

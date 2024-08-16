@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { createUser, findUserById, deleteUserById, updateUserById } from '../../repository/user.repository';
 import { createAddress, updateAddressByUserId } from '../../repository/address.repository';
-import mongoose from 'mongoose';
+import mongoose, { isObjectIdOrHexString } from 'mongoose';
+import { getLoggedUser } from '../../utils/global.utils';
 
 export const createNewUser = async (req: Request, res: Response) => {
   try {
@@ -26,10 +27,8 @@ export const createNewUser = async (req: Request, res: Response) => {
 
 export const getById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-
-    // Validar o ID
-    if (!mongoose.Types.ObjectId.isValid(id.trim())) {
+    const id = getLoggedUser()
+    if (!isObjectIdOrHexString(id)) {
       return res.status(400).json({ message: 'ID inválido' });
     }
 
