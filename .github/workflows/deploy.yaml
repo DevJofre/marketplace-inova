@@ -11,15 +11,6 @@ jobs:
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build the project
-      run: npm run build
-
-    - name: Checkout the files
-      uses: actions/checkout@v3
-
     - name: Copy files with SSH
       uses: easingthemes/ssh-deploy@main
       env:
