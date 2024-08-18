@@ -18,6 +18,13 @@ jobs:
     - name: Build the project
       run: npm run build
 
+    - name: Install SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ec2-18-188-56-228.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+
     - name: Copy dist folder with SSH
       uses: easingthemes/ssh-deploy@main
       env:
