@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     name: Deploy to EC2
@@ -18,7 +17,10 @@ jobs:
     - name: Build the project
       run: npm run build
 
-    - name: Copy dist folder with SSH
+    - name: Checkout the files
+      uses: actions/checkout@v3
+
+    - name: Copy files with SSH
       uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -27,15 +29,4 @@ jobs:
         REMOTE_HOST: "ec2-18-188-56-228.us-east-2.compute.amazonaws.com"
         REMOTE_USER: "ec2-user"
         TARGET: "/home/ec2-user"
-
-    # - name: Install dependencies on EC2
-    #   uses: easingthemes/ssh-deploy@main
-    #   env:
-    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #   with:
-    #     script: |
-    #       ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-188-56-228.us-east-2.compute.amazonaws.com << 'EOF'
-    #         cd /home/ec2-user
-    #         npm install --production
-    #         pm2 restart all || pm2 start dist/server.js --name "inova-api"
-    #       EOF
+        EXCLUDE: "/dist/, /node_modules/, **.env, rebuild_app.sh, watcher.sh"
