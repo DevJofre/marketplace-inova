@@ -13,7 +13,7 @@ jobs:
 
     - name: Copy files with SSH
       uses: easingthemes/ssh-deploy@main
-      env:
+      with:
         SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         ARGS: "-rltgoDzvO --delete"
         SOURCE: "./"
