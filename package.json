@@ -33,6 +33,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.4",
     "mongoose-migrate": "^0.2.4",
+    "pm2": "^5.4.2",
     "uuid": "^10.0.0"
   }
 }
