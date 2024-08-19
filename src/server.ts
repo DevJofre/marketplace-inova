@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import 'dotenv/config'
 import 'express-async-errors';
 import connectDB from './config/database';
 import { createNewUser, getById, deleteUser, updateUser } from './controller/user/user.controller';
