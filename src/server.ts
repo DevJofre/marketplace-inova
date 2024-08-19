@@ -9,7 +9,7 @@ import AuthMiddleware from './middleware/auth';
 import { errorHandlerMiddleware } from './middleware/error.handler.middleware';
 
 const app = express();
-const port = 8080;
+const port = 4000;
 
 connectDB()
 
